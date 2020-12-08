@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-Widget defaultButton(
-    {double width,
-    Color buttonColor,
-    Color splashColor,
-    double height,
-    String label,
-    double labelSize = 14,
-    double top = 0,
-    Color labelColor,
-    double elevation = 0,
-    FontWeight labelWeight = FontWeight.normal,
-    Function onTap}) {
+Widget debitDefaultButton({
+  @required Color buttonColor,
+  @required Color splashColor,
+  @required double height,
+  @required String label,
+  @required Color labelColor,
+  @required Function onTap,
+  double elevation = 0,
+  double labelSize = 14,
+  double top = 0,
+  double width,
+  FontWeight labelWeight = FontWeight.normal,
+}) {
   return Container(
     margin: EdgeInsets.only(top: top),
     width: width,
@@ -37,7 +38,7 @@ Widget defaultButton(
   );
 }
 
-GestureDetector clickableWidget({Widget child, Function onTap}) {
+GestureDetector debitClickableWidget({Widget child, Function onTap}) {
   return GestureDetector(
     onTap: onTap,
     child: child,

@@ -1,3 +1,4 @@
+import 'package:debit/src/ui/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class TextStyleProps {
@@ -13,6 +14,10 @@ TextStyle _headerStyle(TextStyleProps props) {
       color: props.color,
       fontSize: props.fontSize,
       fontWeight: props.fontWeight);
+}
+
+TextStyle simpleStyle({Color color, double fontSize = 15}) {
+  return TextStyle(fontSize: fontSize, color: color);
 }
 
 Text header(

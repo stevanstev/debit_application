@@ -12,8 +12,9 @@ class AppUsageBloc extends BaseBloc<AppUsageEvent, AppUsageState> {
 
   @override
   void mapEventToState(AppUsageEvent e) {
-    if (e is SetImagesIndex) {
-      GetImagesIndex index = GetImagesIndex(currentIndex: e.currentIndex);
+    if (e is SetImagesIndexEvent) {
+      GetImagesIndexState index =
+          GetImagesIndexState(currentIndex: e.currentIndex);
       stateSink.add(index);
     }
   }

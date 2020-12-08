@@ -1,3 +1,5 @@
+import 'package:debit/src/blocs/auth_bloc.dart';
+import 'package:debit/src/ui/guest/register.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/debit_buttons.dart';
 import 'package:debit/src/ui/utils/debit_form.dart';
@@ -5,6 +7,7 @@ import 'package:debit/src/ui/utils/debit_space.dart';
 import 'package:debit/src/ui/utils/strings.dart';
 import 'package:debit/src/ui/utils/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,6 +15,14 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  AuthBloc _authBloc = AuthBloc();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _authBloc.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,33 +37,37 @@ class _LoginState extends State<Login> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      header(
-                          context: context,
-                          text: appName,
-                          type: 7,
-                          fontSize: 50,
-                          color: debitBlue900),
-                    ],
-                  ),
+                  header(
+                      context: context,
+                      text: appName,
+                      type: 7,
+                      fontSize: 50,
+                      color: debitBlue900),
+                  debitCustomTopMargin(3),
                   header(
                       context: context,
                       text: appSubName,
                       type: 4,
                       color: debitBlack54),
-                  customDebitTopMargin(8),
+                  debitCustomTopMargin(20),
                   Form(
                       child: Column(
                     children: [
-                      debitNumberField(label: phoneNumberLabel, maxLength: 12),
-                      customDebitTopMargin(8),
+                      debitNumberField(
+                          label: phoneNumberLabel,
+                          maxLength: 12,
+                          icon: Icons.phone),
+                      debitCustomTopMargin(8),
                       debitSecureField(label: passwordLabel),
-                      defaultButton(
+                      debitCustomTopMargin(6),
+                      debitDefaultButton(
                           elevation: 8,
                           top: 20,
-                          onTap: () {},
+                          onTap: () async {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/bottomNavigation',
+                                (Route<dynamic> route) => false);
+                          },
                           labelColor: debitWhite,
                           buttonColor: debitBlue900,
                           splashColor: debitBlue800,
@@ -60,18 +75,27 @@ class _LoginState extends State<Login> {
                           height: MediaQuery.of(context).size.height * 0.06)
                     ],
                   )),
-                  customDebitTopMargin(45),
+                  debitCustomTopMargin(30),
                   header(
                       context: context,
                       text: createdNewLabel,
                       type: 7,
                       fontSize: 13,
                       color: debitBlack54),
-                  defaultButton(
+                  debitDefaultButton(
                       labelWeight: FontWeight.bold,
                       top: 3,
                       labelSize: 14,
-                      onTap: () {},
+                      onTap: () async {
+                        SharedPreferences _preferences =
+                            await SharedPreferences.getInstance();
+                        _preferences.setString('token', 'ascdasd12312321');
+
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Register();
+                        }));
+                      },
                       labelColor: debitBlue800,
                       buttonColor: debitTransparent,
                       splashColor: debitBlue800,

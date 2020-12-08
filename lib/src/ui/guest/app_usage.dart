@@ -30,7 +30,7 @@ class _AppUsage extends State<AppUsage> {
       backgroundColor: debitGrey100,
       body: StreamBuilder(
           stream: _bloc.stateStream,
-          initialData: GetImagesIndex(currentIndex: 0),
+          initialData: GetImagesIndexState(currentIndex: 0),
           builder: (BuildContext ctx, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) {
               return CircularProgressIndicator();
@@ -65,8 +65,8 @@ class _AppUsage extends State<AppUsage> {
                       options: CarouselOptions(
                           onPageChanged: (index, reason) {
                             setState(() {
-                              _bloc.eventSink
-                                  .add(SetImagesIndex(currentIndex: index));
+                              _bloc.eventSink.add(
+                                  SetImagesIndexEvent(currentIndex: index));
                             });
                           },
                           viewportFraction: 1,
@@ -97,12 +97,12 @@ class _AppUsage extends State<AppUsage> {
                             );
                           }).toList())),
                 ]),
-                defaultButton(
+                debitDefaultButton(
                   splashColor: debitBlue800,
                   buttonColor: debitBlue900,
                   top: 10,
                   onTap: () {
-                    Navigator.of(context).push(
+                    Navigator.of(context).pushReplacement(
                       PageRouteBuilder(
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {

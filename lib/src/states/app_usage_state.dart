@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 abstract class AppUsageState extends Equatable {}
 
-class GetImagesIndex extends AppUsageState {
+class GetImagesIndexState extends AppUsageState {
   final int currentIndex;
 
   List<String> images = [
@@ -12,7 +12,7 @@ class GetImagesIndex extends AppUsageState {
     'usage4.png'
   ];
 
-  GetImagesIndex({this.currentIndex});
+  GetImagesIndexState({this.currentIndex});
 
   @override
   // TODO: implement props

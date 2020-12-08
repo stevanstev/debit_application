@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 
 abstract class AppUsageEvent extends Equatable {}
 
-class SetImagesIndex extends AppUsageEvent {
+class SetImagesIndexEvent extends AppUsageEvent {
   final int currentIndex;
 
-  SetImagesIndex({this.currentIndex});
+  SetImagesIndexEvent({this.currentIndex});
 
   @override
   // TODO: implement props

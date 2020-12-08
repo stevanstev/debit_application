@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-SizedBox customDebitTopMargin(double height) {
+SizedBox debitCustomTopMargin(double height) {
   return SizedBox(
     height: height,
   );

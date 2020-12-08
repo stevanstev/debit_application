@@ -11,11 +11,38 @@ UnderlineInputBorder _inputBorder() {
       borderRadius: BorderRadius.circular(6));
 }
 
+TextFormField debitTextField(
+    {String label,
+    int maxLength,
+    Function onChanged(val),
+    Function validator,
+    IconData icon}) {
+  return TextFormField(
+    maxLength: maxLength,
+    onChanged: onChanged,
+    autofocus: true,
+    validator: validator,
+    keyboardType: TextInputType.text,
+    decoration: InputDecoration(
+        counterText: "",
+        hintStyle: _textStyle(),
+        prefixStyle: _textStyle(),
+        enabledBorder: _inputBorder(),
+        disabledBorder: _inputBorder(),
+        labelText: label,
+        prefixIcon: Icon(
+          icon,
+          color: debitBlue900,
+        )),
+  );
+}
+
 TextFormField debitNumberField(
     {String label,
     int maxLength,
     Function onChanged(val),
-    Function validator}) {
+    Function validator,
+    IconData icon}) {
   return TextFormField(
     maxLength: maxLength,
     onChanged: onChanged,
@@ -30,7 +57,7 @@ TextFormField debitNumberField(
         disabledBorder: _inputBorder(),
         labelText: label,
         prefixIcon: Icon(
-          Icons.phone,
+          icon,
           color: debitBlue900,
         )),
   );
@@ -49,6 +76,7 @@ TextFormField debitSecureField(
     obscureText: true,
     obscuringCharacter: '*',
     decoration: InputDecoration(
+      counterText: "",
       hintStyle: _textStyle(),
       prefixStyle: _textStyle(),
       enabledBorder: _inputBorder(),
