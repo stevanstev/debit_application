@@ -16,8 +16,11 @@ TextStyle _headerStyle(TextStyleProps props) {
       fontWeight: props.fontWeight);
 }
 
-TextStyle simpleStyle({Color color, double fontSize = 15}) {
-  return TextStyle(fontSize: fontSize, color: color);
+TextStyle simpleStyle(
+    {Color color,
+    double fontSize = 15,
+    FontWeight fontWeight = FontWeight.normal}) {
+  return TextStyle(fontSize: fontSize, color: color, fontWeight: fontWeight);
 }
 
 Text header(

@@ -54,3 +54,14 @@ const String securityLabel = 'Security';
 const String helpLabel = 'Help';
 const String termsAndConditionLabel = 'Terms and Conditions';
 const String logoutLabel = 'Sign Out';
+
+/*
+  CARD PAGE LABEL
+*/
+const String listOfSubmissions = 'Submissions';
+
+/*
+  FUNCTION BUTTON LABEL
+*/
+const String filterLabel = 'Filter';
+const String sortLabel = 'Sort';

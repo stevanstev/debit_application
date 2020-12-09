@@ -1,8 +1,15 @@
+import 'dart:async';
+
 import 'package:debit/src/blocs/auth_bloc.dart';
 import 'package:debit/src/events/auth_event.dart';
 import 'package:debit/src/states/auth_state.dart';
 import 'package:debit/src/ui/auth/debit_app_bar.dart';
+import 'package:debit/src/ui/utils/colors.dart';
+import 'package:debit/src/ui/utils/screen_size.dart';
 import 'package:debit/src/ui/utils/strings.dart';
+import 'package:debit/src/ui/widgets/credit_card.dart';
+import 'package:debit/src/ui/widgets/loading_screen.dart';
+import 'package:debit/src/ui/widgets/not_implemented_ui.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
@@ -34,12 +41,19 @@ class _DashboardState extends State<Dashboard> {
           if (snapshot.hasData) {
             return Scaffold(
               appBar: DebitAppBar(
+                height: 150,
                 title: dashboardLabel,
               ),
-              body: ListView(),
+              body: ListView(
+                children: [],
+              ),
             );
           } else {
-            return CircularProgressIndicator();
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
           }
         });
   }

@@ -6,6 +6,7 @@ final Color debitBlue800 = Colors.blue[800];
 final Color debitRed300 = Colors.red[300];
 final Color debitRed800 = Colors.red[800];
 final Color debitRed400 = Colors.red[400];
+final Color debitGrey200 = Colors.grey[200];
 
 const Color debitTransparent = Colors.transparent;
 const Color debitBlack = Colors.black;
