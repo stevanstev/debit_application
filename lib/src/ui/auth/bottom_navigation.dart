@@ -28,6 +28,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           if (snapshot.hasData) {
             return Scaffold(
               bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
                 currentIndex: snapshot.data.index,
                 onTap: (index) {
                   _bloc.eventSink.add(NavigateEvent(index));
@@ -41,9 +42,16 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     ),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.credit_card),
+                    icon: Icon(Icons.video_call),
                     title: Text(
-                      cardsLabel,
+                      interviewLabel,
+                      style: simpleStyle(),
+                    ),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.assignment),
+                    title: Text(
+                      submissionLabel,
                       style: simpleStyle(),
                     ),
                   ),
@@ -58,9 +66,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
               ),
               body: _bloc.pages[snapshot.data.index],
             );
-          } else {
+          } else if (!snapshot.hasData) {
             return CircularProgressIndicator();
           }
+          return CircularProgressIndicator();
         });
   }
 }

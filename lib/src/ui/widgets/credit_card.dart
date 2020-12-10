@@ -1,4 +1,3 @@
-import 'package:debit/src/ui/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
@@ -6,15 +5,17 @@ class CreditCard extends StatelessWidget {
   final String cardNumber, expiryDate, cardHolderName, cvvCode;
   final bool isCvvFocused;
   final double width, height;
+  final Color cardbgColor;
 
   CreditCard(
       {this.cardNumber,
-      this.expiryDate = 'Debit Gold Account',
+      this.expiryDate = 'Username',
       this.cardHolderName,
       this.cvvCode,
       this.isCvvFocused,
       this.width,
-      this.height});
+      this.height,
+      this.cardbgColor});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class CreditCard extends StatelessWidget {
           cardHolderName: cardHolderName,
           cvvCode: cvvCode,
           showBackView: isCvvFocused,
-          cardbgColor: debitBlue800,
+          cardbgColor: cardbgColor,
         ),
       ),
     );

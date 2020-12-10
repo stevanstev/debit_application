@@ -11,6 +11,7 @@ Widget debitDefaultButton({
   double labelSize = 14,
   double top = 0,
   double width,
+  double buttonRadius = 10,
   FontWeight labelWeight = FontWeight.normal,
 }) {
   return Container(
@@ -18,7 +19,7 @@ Widget debitDefaultButton({
     width: width,
     height: height,
     child: Material(
-      borderRadius: BorderRadius.circular(5),
+      borderRadius: BorderRadius.circular(buttonRadius),
       elevation: elevation,
       color: buttonColor,
       child: InkWell(

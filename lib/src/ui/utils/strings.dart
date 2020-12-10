@@ -7,7 +7,6 @@ const String license = 'Stevanstev 2020';
 const String termsAndConditions = 'Terms and conditions';
 const String agreeToTerms = 'I agree to Terms';
 const String loremIpsum = 'Lorem ipsum ';
-const String here = 'here';
 
 /*
   DEFAULT FORM LABEL
@@ -44,7 +43,9 @@ const String alreadyHaveAccount = 'Already have an account ?';
 */
 const String dashboardLabel = 'Dashboard';
 const String cardsLabel = 'Cards';
+const String submissionLabel = 'Submissions';
 const String profileLabel = 'Profile';
+const String interviewLabel = 'Interview';
 
 /*
   ICON MENU LABEL
@@ -65,3 +66,25 @@ const String listOfSubmissions = 'Submissions';
 */
 const String filterLabel = 'Filter';
 const String sortLabel = 'Sort';
+
+/*
+  TAB BAR LABEL
+*/
+const String amountLabel = 'Amount';
+const String sendLabel = 'Send';
+const String historyLabel = 'History';
+const String waitingSubmissionLabel = 'Waiting';
+const String doneSubmissionLabel = 'Done';
+const String rejectedSubmssionLabel = 'Rejected';
+
+/* 
+  SUBMISSION PAGE LABEL
+*/
+
+/*
+  OTHERS LABEL
+*/
+const String detailsLabel = 'Details';
+const String cancelLabel = 'Cancel';
+const String here = 'here';
+const String unimplementedLabel = 'Unimplemented';

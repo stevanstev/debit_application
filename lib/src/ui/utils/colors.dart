@@ -7,6 +7,8 @@ final Color debitRed300 = Colors.red[300];
 final Color debitRed800 = Colors.red[800];
 final Color debitRed400 = Colors.red[400];
 final Color debitGrey200 = Colors.grey[200];
+final Color debitYellow800 = Colors.yellow[800];
+final Color debitCyan300 = Colors.cyan[300];
 
 const Color debitTransparent = Colors.transparent;
 const Color debitBlack = Colors.black;
@@ -16,3 +18,4 @@ const Color debitBlack54 = Colors.black54;
 const Color debitBlack87 = Colors.black87;
 const Color debitWhite = Colors.white;
 const Color debitRed = Colors.red;
+const Color debitGrey = Colors.grey;
