@@ -46,6 +46,7 @@ const String idCardLabel = 'ID Card';
 const String selfieWithIdCardLabel = 'Selfie With ID Card';
 const String signLabel = 'Sign';
 const String idCardNumberLabel = 'ID Card Number';
+const String pinLabel = 'Application Pin';
 const String ageLabel = 'Age';
 const String familyCardNumberLabel = 'Family Card Number';
 const String genderLabel = 'Gender';

@@ -1,3 +1,4 @@
+import 'package:debit/src/ui/auth/account/pin_view.dart';
 import 'package:debit/src/ui/auth/bottom_navigation.dart';
 import 'package:debit/src/ui/auth/dashboard.dart';
 import 'package:debit/src/ui/guest/app_usage.dart';
@@ -21,7 +22,7 @@ class Main extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != '') {
-              return BottomNavigation();
+              return PinView();
             } else {
               return AppUsage();
             }
@@ -43,6 +44,7 @@ class Main extends StatelessWidget {
         '/login': (BuildContext ctx) => Login(),
         '/dashboard': (BuildContext ctx) => Dashboard(),
         '/bottomNavigation': (BuildContext ctx) => BottomNavigation(),
+        '/pinView': (BuildContext ctx) => PinView(),
       },
     );
   }

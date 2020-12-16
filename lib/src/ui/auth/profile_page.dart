@@ -1,6 +1,7 @@
 import 'package:debit/src/blocs/auth_bloc.dart';
 import 'package:debit/src/events/auth_event.dart';
 import 'package:debit/src/states/auth_state.dart';
+import 'package:debit/src/ui/auth/account/user_profile.dart';
 import 'package:debit/src/ui/auth/debit_app_bar.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/strings.dart';
@@ -58,7 +59,8 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           ListTile(
             onTap: () {
-              print(userDataLabel);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => UserProfile()));
             },
             leading: Icon(Icons.person),
             trailing: Icon(Icons.chevron_right),

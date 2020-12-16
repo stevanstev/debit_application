@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class AuthProvider with ChangeNotifier {
+class AuthState with ChangeNotifier {
   String _token;
 
   String get token => _token;

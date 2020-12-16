@@ -6,13 +6,23 @@ class RegisterBloc extends BaseBloc<RegisterEvent, RegisterState> {
   @override
   void mapEventToState(e) {
     if (e is SetDefaultEvent) {
-      setDefaultEvent(e);
+      _setDefaultEvent(e);
+    } else if (e is ValidationErrorEvent) {
+      _validationErrorEvent(e);
     }
   }
 
-  setDefaultEvent(SetDefaultEvent e) {
-    GetDefaultState state =
-        GetDefaultState(gender: e.gender, status: e.status, toggle: e.toggle);
+  _validationErrorEvent(ValidationErrorEvent e) {
+    ValidationErrorState state = ValidationErrorState();
+    stateSink.add(state);
+  }
+
+  _setDefaultEvent(SetDefaultEvent e) {
+    GetDefaultState state = GetDefaultState(
+        gender: e.gender,
+        status: e.status,
+        toggle: e.toggle,
+        phoneNumber: e.phoneNumber);
     stateSink.add(state);
   }
 }

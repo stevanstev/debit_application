@@ -32,7 +32,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             children: [
               header(
                   context: context,
-                  text: appName,
+                  text: 'Debit Bank',
                   type: 7,
                   fontSize: 50,
                   color: debitBlue900),

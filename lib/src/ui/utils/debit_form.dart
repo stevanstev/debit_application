@@ -161,15 +161,15 @@ TextFormField debitTextField(
 TextFormField debitNumberField(
     {String label,
     int maxLength,
-    Function onChanged(val),
-    Function validator,
+    Function onChanged,
     IconData icon,
+    Function onSaved,
     bool autofocus = false}) {
   return TextFormField(
+    onSaved: onSaved,
     maxLength: maxLength,
     onChanged: onChanged,
     autofocus: autofocus,
-    validator: validator,
     keyboardType: TextInputType.number,
     decoration: InputDecoration(
         counterText: "",
@@ -188,10 +188,12 @@ TextFormField debitNumberField(
 TextFormField debitSecureField({
   String label,
   int maxLength,
-  Function onChanged(val),
   Function validator,
+  Function onChanged,
+  Function onSaved,
 }) {
   return TextFormField(
+    onSaved: onSaved,
     validator: validator,
     maxLength: maxLength,
     onChanged: onChanged,
