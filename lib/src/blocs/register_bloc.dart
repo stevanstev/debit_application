@@ -5,9 +5,14 @@ import 'package:debit/src/states/register_state.dart';
 class RegisterBloc extends BaseBloc<RegisterEvent, RegisterState> {
   @override
   void mapEventToState(e) {
-    if (e is SetCheckboxToggleEvent) {
-      GetCheckboxToggleState toggle = GetCheckboxToggleState(e.toggle);
-      stateSink.add(toggle);
+    if (e is SetDefaultEvent) {
+      setDefaultEvent(e);
     }
+  }
+
+  setDefaultEvent(SetDefaultEvent e) {
+    GetDefaultState state =
+        GetDefaultState(gender: e.gender, status: e.status, toggle: e.toggle);
+    stateSink.add(state);
   }
 }

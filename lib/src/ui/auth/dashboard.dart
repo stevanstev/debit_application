@@ -13,8 +13,8 @@ import 'package:debit/src/ui/utils/dot_shape.dart';
 import 'package:debit/src/ui/utils/screen_size.dart';
 import 'package:debit/src/ui/utils/strings.dart';
 import 'package:debit/src/ui/utils/texts.dart';
+import 'package:debit/src/ui/widgets/bank_card.dart';
 import 'package:debit/src/ui/widgets/clippers.dart';
-import 'package:debit/src/ui/widgets/credit_card.dart';
 import 'package:debit/src/ui/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,6 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   AuthBloc _authBloc = AuthBloc();
-  bool flip = false;
   int _cardIndex = 0;
   List<List<MonthlyData>> _monthlyDatas = [
     [
@@ -161,7 +160,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 20),
                     child: Container(
                       width: fullWidthSize(context: context),
                       decoration: BoxDecoration(color: debitGrey100),
@@ -170,57 +169,85 @@ class _DashboardState extends State<Dashboard> {
                           CarouselSlider(
                               items: [
                                 GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        flip = !flip;
-                                      });
-                                    },
                                     child: Container(
-                                      child: CreditCard(
-                                        cardbgColor: debitYellow800,
-                                        expiryDate: 'Stevanus Steven',
-                                        cardHolderName: 'Debit Gold',
-                                        cardNumber: '6046181989',
-                                        cvvCode: '15142',
-                                        isCvvFocused: flip,
-                                        height:
-                                            fullHeightSize(context: context) *
-                                                0.23,
-                                        width: fullWidthSize(context: context),
-                                      ),
-                                    )),
+                                        child: BankCard(
+                                  cardGradient: [
+                                    Colors.amber,
+                                    Colors.yellow[800]
+                                  ],
+                                  cardHolder: 'STEVANUS STEVEN',
+                                  cardNumbers: [
+                                    header(
+                                        text: '1234',
+                                        color: debitWhite,
+                                        fontSize: 19,
+                                        type: 7),
+                                    header(
+                                        text: '5678',
+                                        color: debitWhite,
+                                        fontSize: 19,
+                                        type: 7),
+                                    header(
+                                        text: '3452',
+                                        color: debitWhite,
+                                        fontSize: 19,
+                                        type: 7),
+                                    header(
+                                        text: '1245',
+                                        color: debitWhite,
+                                        fontSize: 19,
+                                        type: 7),
+                                  ],
+                                  height:
+                                      fullHeightSize(context: context) * 0.23,
+                                  width: fullWidthSize(context: context),
+                                ))),
                                 GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        flip = !flip;
-                                      });
-                                    },
                                     child: Container(
-                                      child: CreditCard(
-                                        cardbgColor: Colors.blueGrey[100],
-                                        expiryDate: 'Stevanus Steven',
-                                        cardHolderName: 'Debit Silver',
-                                        cardNumber: '6046181967',
-                                        cvvCode: '15132',
-                                        isCvvFocused: flip,
-                                        height:
-                                            fullHeightSize(context: context) *
-                                                0.23,
-                                        width: fullWidthSize(context: context),
-                                      ),
-                                    )),
+                                  child: BankCard(
+                                    cardGradient: [debitGrey, Colors.blueGrey],
+                                    cardHolder: 'STEVANUS STEVEN',
+                                    cardNumbers: [
+                                      header(
+                                          text: '8765',
+                                          color: debitWhite,
+                                          fontSize: 19,
+                                          type: 7),
+                                      header(
+                                          text: '5497',
+                                          color: debitWhite,
+                                          fontSize: 19,
+                                          type: 7),
+                                      header(
+                                          text: '0974',
+                                          color: debitWhite,
+                                          fontSize: 19,
+                                          type: 7),
+                                      header(
+                                          text: '2354',
+                                          color: debitWhite,
+                                          fontSize: 19,
+                                          type: 7),
+                                    ],
+                                    height:
+                                        fullHeightSize(context: context) * 0.23,
+                                    width: fullWidthSize(context: context),
+                                  ),
+                                )),
                               ],
                               options: CarouselOptions(
+                                aspectRatio: 16 / 8,
                                 onPageChanged: (index, reason) {
                                   setState(() {
                                     _cardIndex = index;
                                   });
                                 },
-                                viewportFraction: 1,
+                                viewportFraction: 0.85,
                                 pageSnapping: true,
                                 initialPage: 0,
                                 enlargeCenterPage: true,
                               )),
+                          debitCustomTopMargin(20),
                           Align(
                             alignment: Alignment.center,
                             child: Row(

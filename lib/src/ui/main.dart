@@ -3,6 +3,7 @@ import 'package:debit/src/ui/auth/dashboard.dart';
 import 'package:debit/src/ui/guest/app_usage.dart';
 import 'package:debit/src/ui/guest/login.dart';
 import 'package:debit/src/ui/utils/colors.dart';
+import 'package:debit/src/ui/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,13 +25,8 @@ class Main extends StatelessWidget {
             } else {
               return AppUsage();
             }
-          } else {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
           }
+          return LoadingScreen();
         },
         future: getAuthToken(),
       ),

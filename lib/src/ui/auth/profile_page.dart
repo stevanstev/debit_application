@@ -5,7 +5,6 @@ import 'package:debit/src/ui/auth/debit_app_bar.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/strings.dart';
 import 'package:debit/src/ui/utils/texts.dart';
-import 'package:debit/src/ui/widgets/icon_menu.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -22,9 +21,15 @@ class _ProfilePageState extends State<ProfilePage> {
     super.dispose();
   }
 
+  gotoMainScreen() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.of(context)
+        .pushNamedAndRemoveUntil('/init', (Route<dynamic> route) => false));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: debitGrey100,
       appBar: DebitAppBar(
         height: 150,
         child: Column(
@@ -51,27 +56,49 @@ class _ProfilePageState extends State<ProfilePage> {
       body: ListView(
         padding: EdgeInsets.only(),
         children: [
-          IconMenu(
-            label: userDataLabel,
-            icon: Icons.person,
+          ListTile(
             onTap: () {
               print(userDataLabel);
             },
+            leading: Icon(Icons.person),
+            trailing: Icon(Icons.chevron_right),
+            title: Text(
+              userDataLabel,
+              style: simpleStyle(color: debitBlack87, fontSize: 16),
+            ),
           ),
-          IconMenu(
-            onTap: () {},
-            label: securityLabel,
-            icon: Icons.security,
+          ListTile(
+            onTap: () {
+              print(securityLabel);
+            },
+            leading: Icon(Icons.security),
+            trailing: Icon(Icons.chevron_right),
+            title: Text(
+              securityLabel,
+              style: simpleStyle(color: debitBlack87, fontSize: 16),
+            ),
           ),
-          IconMenu(
-            onTap: () {},
-            label: helpLabel,
-            icon: Icons.help,
+          ListTile(
+            onTap: () {
+              print(helpLabel);
+            },
+            leading: Icon(Icons.help),
+            trailing: Icon(Icons.chevron_right),
+            title: Text(
+              helpLabel,
+              style: simpleStyle(color: debitBlack87, fontSize: 16),
+            ),
           ),
-          IconMenu(
-            onTap: () {},
-            label: termsAndConditionLabel,
-            icon: Icons.book,
+          ListTile(
+            onTap: () {
+              print(termsAndConditionLabel);
+            },
+            leading: Icon(Icons.book),
+            trailing: Icon(Icons.chevron_right),
+            title: Text(
+              termsAndConditionLabel,
+              style: simpleStyle(color: debitBlack87, fontSize: 16),
+            ),
           ),
           StreamBuilder(
               stream: _bloc.stateStream,
@@ -79,18 +106,20 @@ class _ProfilePageState extends State<ProfilePage> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data.status == false) {
-                    return IconMenu(
+                    return ListTile(
                       onTap: () {
                         _bloc.eventSink.add(RemoveAuthTokenEvent());
                       },
-                      label: logoutLabel,
-                      icon: Icons.exit_to_app,
+                      leading: Icon(Icons.exit_to_app),
+                      trailing: Icon(Icons.chevron_right),
+                      title: Text(
+                        logoutLabel,
+                        style: simpleStyle(color: debitBlack87, fontSize: 16),
+                      ),
                     );
                   } else if (snapshot.data.status == true) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) =>
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/init', (Route<dynamic> route) => false));
-                    return const SizedBox();
+                    gotoMainScreen();
+                    return Container();
                   }
                 } else {
                   return Container();

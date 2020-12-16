@@ -1,3 +1,4 @@
+import 'package:debit/src/ui/auth/notif.dart';
 import 'package:flutter/material.dart';
 
 class DebitAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -5,17 +6,20 @@ class DebitAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height, fontSize;
   final Widget child;
   final FontWeight fontWeight;
+  final PreferredSizeWidget bottom;
 
   DebitAppBar(
-      {this.title,
+      {@required this.title,
       this.height,
       this.child,
       this.fontSize = 19,
+      this.bottom,
       this.fontWeight = FontWeight.normal});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      bottom: bottom,
       elevation: 0.0,
       flexibleSpace:
           Align(alignment: Alignment.bottomCenter, child: child ?? Container()),
@@ -26,7 +30,14 @@ class DebitAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: EdgeInsets.only(right: 12),
-          child: Icon(Icons.notifications),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                return Notif();
+              }));
+            },
+            child: Icon(Icons.notifications),
+          ),
         )
       ],
     );

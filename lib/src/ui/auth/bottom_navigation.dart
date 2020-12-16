@@ -1,8 +1,10 @@
 import 'package:debit/src/blocs/bottom_nav_bloc.dart';
 import 'package:debit/src/events/bottom_nav_event.dart';
 import 'package:debit/src/states/bottom_nav_state.dart';
+import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/strings.dart';
 import 'package:debit/src/ui/utils/texts.dart';
+import 'package:debit/src/ui/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -19,6 +21,30 @@ class _BottomNavigationState extends State<BottomNavigation> {
     super.dispose();
   }
 
+  Color navigationColor(int index) {
+    Color _color;
+
+    switch (index) {
+      case 0:
+        _color = debitBlue900;
+        break;
+      case 1:
+        _color = debitGreen;
+        break;
+      case 2:
+        _color = debitYellow800;
+        break;
+      case 3:
+        _color = debitBlack;
+        break;
+      default:
+        _color = debitBlack;
+        break;
+    }
+
+    return _color;
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -28,6 +54,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           if (snapshot.hasData) {
             return Scaffold(
               bottomNavigationBar: BottomNavigationBar(
+                selectedItemColor: navigationColor(snapshot.data.index),
                 type: BottomNavigationBarType.fixed,
                 currentIndex: snapshot.data.index,
                 onTap: (index) {
@@ -67,9 +94,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
               body: _bloc.pages[snapshot.data.index],
             );
           } else if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return LoadingScreen();
           }
-          return CircularProgressIndicator();
+          return LoadingScreen();
         });
   }
 }

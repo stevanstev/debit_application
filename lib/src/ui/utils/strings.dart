@@ -37,6 +37,24 @@ const String submitLabel = 'SUBMIT';
 const String registerHeaderLabel = 'Create Account';
 const String registerSubmitLabel = 'SIGN UP';
 const String alreadyHaveAccount = 'Already have an account ?';
+const String imageUploadSection = 'Images Upload';
+const String selectInputSection = 'Select Input';
+const String selectDateSection = 'Born Data';
+const String dataInputLabel = 'Data Input';
+const String uploadButtonLabel = 'UPLOAD';
+const String idCardLabel = 'ID Card';
+const String selfieWithIdCardLabel = 'Selfie With ID Card';
+const String signLabel = 'Sign';
+const String idCardNumberLabel = 'ID Card Number';
+const String ageLabel = 'Age';
+const String familyCardNumberLabel = 'Family Card Number';
+const String genderLabel = 'Gender';
+const String genderInputLabel = 'Please select your gender';
+const String statusLabel = 'Status';
+const String statusInputLabel = 'Please select your status';
+const String bornDateLabel = 'Born Date';
+const String bornPlaceLabel = 'Born Place';
+const String addressLabel = 'Address';
 
 /*
   BOTTOM NAVIGATION LABEL
@@ -88,3 +106,8 @@ const String detailsLabel = 'Details';
 const String cancelLabel = 'Cancel';
 const String here = 'here';
 const String unimplementedLabel = 'Unimplemented';
+
+/*
+  INTERVIEW PAGE LABEL
+*/
+const String searchLabel = 'Search';

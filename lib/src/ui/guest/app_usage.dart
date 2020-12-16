@@ -7,6 +7,7 @@ import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/debit_buttons.dart';
 import 'package:debit/src/ui/utils/dot_shape.dart';
 import 'package:debit/src/ui/utils/strings.dart';
+import 'package:debit/src/ui/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppUsage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _AppUsage extends State<AppUsage> {
           initialData: GetImagesIndexState(currentIndex: 0),
           builder: (BuildContext ctx, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) {
-              return CircularProgressIndicator();
+              return LoadingScreen();
             }
 
             return ListView(

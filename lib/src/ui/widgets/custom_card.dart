@@ -119,6 +119,7 @@ class CustomCard extends StatelessWidget {
                 child: Row(
                   children: [
                     debitDefaultButton(
+                        elevation: 10,
                         buttonColor: debitBlue900,
                         splashColor: debitBlue800,
                         height: height * 0.2,
@@ -130,6 +131,7 @@ class CustomCard extends StatelessWidget {
                       width: 5,
                     ),
                     debitDefaultButton(
+                        elevation: 10,
                         buttonColor: debitRed800,
                         splashColor: debitRed400,
                         height: height * 0.2,

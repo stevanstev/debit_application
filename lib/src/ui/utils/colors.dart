@@ -19,3 +19,5 @@ const Color debitBlack87 = Colors.black87;
 const Color debitWhite = Colors.white;
 const Color debitRed = Colors.red;
 const Color debitGrey = Colors.grey;
+const Color debitGreen = Colors.green;
+const Color debitYellow = Colors.yellow;

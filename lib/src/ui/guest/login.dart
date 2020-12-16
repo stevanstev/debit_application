@@ -64,6 +64,10 @@ class _LoginState extends State<Login> {
                           elevation: 8,
                           top: 20,
                           onTap: () async {
+                            SharedPreferences _preferences =
+                                await SharedPreferences.getInstance();
+                            _preferences.setString('token', 'ascdasd12312321');
+
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 '/bottomNavigation',
                                 (Route<dynamic> route) => false);
@@ -86,15 +90,23 @@ class _LoginState extends State<Login> {
                       labelWeight: FontWeight.bold,
                       top: 3,
                       labelSize: 14,
-                      onTap: () async {
-                        SharedPreferences _preferences =
-                            await SharedPreferences.getInstance();
-                        _preferences.setString('token', 'ascdasd12312321');
-
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Register();
-                        }));
+                      onTap: () {
+                        Navigator.of(context).push(PageRouteBuilder(
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            var begin = Offset(0.0, 1.0);
+                            var end = Offset.zero;
+                            var tween = Tween(begin: begin, end: end);
+                            var offsetAnimation = animation.drive(tween);
+                            return SlideTransition(
+                              position: offsetAnimation,
+                              child: child,
+                            );
+                          },
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  Register(),
+                        ));
                       },
                       labelColor: debitBlue800,
                       buttonColor: debitTransparent,
