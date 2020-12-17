@@ -1,111 +1,168 @@
 import 'package:debit/src/ui/utils/colors.dart';
-import 'package:debit/src/ui/utils/debit_buttons.dart';
-import 'package:debit/src/ui/utils/texts.dart';
 import 'package:flutter/material.dart';
 
 class InterviewSchedules extends StatelessWidget {
   final double width, height;
+  final IconData statusIcon;
+  final Color statusIconColor;
+  final String interviewer, interviewDate;
 
   ///[width] width of the card container
   ///
   ///[height] height of the card container
+  ///
+  ///[statusIcon] Icon of the card container
+  ///
+  ///[statusIconColor] Icon Color of the card container
+  ///
+  ///[interviewer] Interviewer of the card container
+  ///
+  ///[interviewDate] Date time bar of the card container
   ///```
-  ///InterviewSchedules(width: 200, height: 200)
+  ///InterviewSchedules(
+  ///width: 200,
+  ///height: 200,
+  ///statusIcon: Icon(Icons.waiting,
+  ///statusIconColor: Colors.red,
+  ///interviewer: 'Steve',
+  ///interviewDate: '12 Dec 2020'))
   ///```
   InterviewSchedules({
     @required this.width,
     @required this.height,
+    @required this.statusIcon,
+    @required this.statusIconColor,
+    @required this.interviewDate,
+    @required this.interviewer,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: debitBlack.withOpacity(0.6),
-                      offset: Offset(1, 1),
-                      blurRadius: 7)
-                ],
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.blueAccent),
-            width: width,
+    double progressWidth = width * 0.5;
+    DateTime _today = DateTime.now();
+    DateTime _interviewDateParse = DateTime.parse(interviewDate);
+    final _dateDifferences = (_today.difference(_interviewDateParse).inDays);
+    double ratio = (_dateDifferences < 0) ? _dateDifferences.abs() / 7 : 1.0;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
+      child: Column(
+        children: [
+          Container(
             height: height,
-            child: Stack(
+            width: width,
+            decoration: BoxDecoration(
+              color: debitWhite,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Positioned(
-                    top: 10,
-                    left: 10,
-                    child: Container(
-                      width: width * 0.24,
-                      height: height * 0.43,
-                      decoration: BoxDecoration(),
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/irene.jpg'),
-                      ),
-                    )),
-                Positioned(
-                  right: 5,
-                  top: 10,
-                  child: debitIconButton(
-                      elevation: 10,
-                      iconColor: debitWhite,
-                      icon: Icons.calendar_today,
-                      buttonColor: debitYellow800,
-                      splashColor: debitYellow800,
-                      height: 35,
-                      width: 120,
-                      label: 'Re-Schedule',
-                      labelColor: debitWhite,
-                      onTap: () {}),
+                Flexible(
+                  flex: 1,
+                  child: Icon(
+                    statusIcon,
+                    color: statusIconColor,
+                    size: 35,
+                  ),
                 ),
-                Positioned(
-                    right: 5,
-                    top: 60,
-                    child: Row(
-                      children: [
-                        debitIconButton(
-                            elevation: 10,
-                            iconColor: debitWhite,
-                            icon: Icons.video_call,
-                            buttonColor: debitGreen,
-                            splashColor: debitGreen,
-                            height: 35,
-                            width: 120,
-                            label: 'Attend',
-                            labelColor: debitWhite,
-                            onTap: () {}),
-                      ],
-                    )),
-                Positioned(
-                  bottom: 10,
-                  left: 10,
+                Flexible(
+                  flex: 4,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        'ID: 1231232123',
-                        style: simpleStyle(color: debitWhite, fontSize: 14),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text('Date'),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                  '${_interviewDateParse.day}/${_interviewDateParse.month}/${_interviewDateParse.year}'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text('Interviewer'),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(interviewer),
+                            ],
+                          ),
+                        ],
                       ),
-                      Text(
-                        'Date: 12 December 2020',
-                        style: simpleStyle(color: debitWhite, fontSize: 14),
-                      ),
-                      Text(
-                        'Interviewer: Steve',
-                        style: simpleStyle(color: debitWhite, fontSize: 14),
-                      ),
+                      Stack(
+                        children: [
+                          Container(
+                            width: progressWidth,
+                            height: 10,
+                            decoration: BoxDecoration(color: debitRed300),
+                          ),
+                          AnimatedContainer(
+                            duration: Duration(seconds: 2),
+                            width: progressWidth * ratio,
+                            height: 10,
+                            decoration: BoxDecoration(color: debitGreen),
+                          ),
+                        ],
+                      )
                     ],
+                  ),
+                ),
+                Flexible(
+                  flex: 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: (_dateDifferences < 0)
+                        ? [
+                            Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: debitGreen,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: InkWell(
+                                  child: Icon(
+                                Icons.add_to_home_screen,
+                                color: debitWhite,
+                              )),
+                            ),
+                            Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: debitYellow800,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: InkWell(
+                                  child: Icon(
+                                Icons.calendar_today,
+                                color: debitWhite,
+                              )),
+                            ),
+                          ]
+                        : [
+                            Container(
+                              width: 35,
+                              height: 35,
+                            ),
+                          ],
                   ),
                 )
               ],
-            )),
-        SizedBox(
-          height: 40,
-        ),
-      ],
+            ),
+          ),
+          Divider(
+            height: 0,
+            thickness: 2,
+          ),
+        ],
+      ),
     );
   }
 }

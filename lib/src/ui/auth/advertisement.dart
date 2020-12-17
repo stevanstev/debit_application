@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:debit/src/ui/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 
 class Advertisement extends StatelessWidget {

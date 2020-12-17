@@ -343,7 +343,7 @@ class _RegisterState extends State<Register> with FormValidation {
                           ),
                           onPressed: () {
                             DatePicker.showDatePicker(context,
-                                onConfirm: (time) {
+                                maxTime: DateTime.now(), onConfirm: (time) {
                               setState(() {
                                 _bornDate = time.toString();
                                 _dateWidget = Text(
