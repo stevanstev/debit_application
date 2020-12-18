@@ -1,166 +1,222 @@
+import 'package:debit/src/ui/auth/video_call/open_window.dart';
 import 'package:debit/src/ui/utils/colors.dart';
+import 'package:debit/src/ui/utils/custom_date_format.dart';
+import 'package:debit/src/ui/utils/texts.dart';
+import 'package:debit/src/ui/widgets/vertical_line_painter.dart';
 import 'package:flutter/material.dart';
 
 class InterviewSchedules extends StatelessWidget {
-  final double width, height;
-  final IconData statusIcon;
-  final Color statusIconColor;
-  final String interviewer, interviewDate;
+  final double width;
+  // Will be Model in the future
+  final Map<String, dynamic> interviewData;
 
-  ///[width] width of the card container
+  ///[width] Width of schedule box
   ///
-  ///[height] height of the card container
-  ///
-  ///[statusIcon] Icon of the card container
-  ///
-  ///[statusIconColor] Icon Color of the card container
-  ///
-  ///[interviewer] Interviewer of the card container
-  ///
-  ///[interviewDate] Date time bar of the card container
+  ///[interviewData] the schedule data,
   ///```
-  ///InterviewSchedules(
-  ///width: 200,
-  ///height: 200,
-  ///statusIcon: Icon(Icons.waiting,
-  ///statusIconColor: Colors.red,
-  ///interviewer: 'Steve',
-  ///interviewDate: '12 Dec 2020'))
+  ///InterviewSchedules({
+  /// width: 100,
+  /// interviewData: {
+  /// 'interviewer': <String>[
+  ///    'assets/images/image.jpg',
+  ///    'assets/images/image.jpg',
+  ///     ......
+  ///  ],
+  ///  'interviewDate': '2020-12-18T13:44:00Z',
+  /// 'title': 'Create new Card',
+  /// 'subTitle': 'Please Attend for create a new card',}
+  ///})
   ///```
   InterviewSchedules({
     @required this.width,
-    @required this.height,
-    @required this.statusIcon,
-    @required this.statusIconColor,
-    @required this.interviewDate,
-    @required this.interviewer,
+    @required this.interviewData,
   });
+
+  Color _statusColorMap(DateTime dt) {
+    DateTime now = DateTime.now();
+    Color _color;
+    int differences = now.difference(dt).inDays;
+    // Give user compensation +30 minutes from schedule minutes
+    List<int> format = minuteNumberFormat(dt.hour, dt.minute + 30);
+
+    if (differences < 0) {
+      // Interview day does not match
+      _color = debitYellow800;
+    } else if (differences > 0) {
+      // Interview schedule is expired and finish
+      _color = debitRed800;
+    } else {
+      // Same Day
+      if (now.hour < dt.hour && now.minute < dt.minute) {
+        _color = debitYellow800;
+      } else if (now.hour == dt.hour && now.minute == dt.minute) {
+        _color = debitGreen;
+      } else {
+        // hour and minutes is matched
+        if (format[1] != now.minute && dt.hour + format[0] == now.hour) {
+          _color = debitGreen;
+        } else {
+          _color = debitRed800;
+        }
+      }
+    }
+
+    return _color;
+  }
 
   @override
   Widget build(BuildContext context) {
-    double progressWidth = width * 0.5;
-    DateTime _today = DateTime.now();
-    DateTime _interviewDateParse = DateTime.parse(interviewDate);
-    final _dateDifferences = (_today.difference(_interviewDateParse).inDays);
-    double ratio = (_dateDifferences < 0) ? _dateDifferences.abs() / 7 : 1.0;
+    DateTime _formatDate = DateTime.parse(interviewData['interviewDate']);
+    List<String> interviewer = interviewData['interviewer'];
+    Color _interviewStatus = _statusColorMap(_formatDate);
 
     return Padding(
-      padding: const EdgeInsets.only(top: 5, bottom: 5),
+      padding: EdgeInsets.all(0),
       child: Column(
         children: [
           Container(
-            height: height,
-            width: width,
-            decoration: BoxDecoration(
-              color: debitWhite,
-            ),
+            height: 155,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Flexible(
-                  flex: 1,
-                  child: Icon(
-                    statusIcon,
-                    color: statusIconColor,
-                    size: 35,
-                  ),
-                ),
-                Flexible(
-                  flex: 4,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
+                    flex: 3,
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('Date'),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                  '${_interviewDateParse.day}/${_interviewDateParse.month}/${_interviewDateParse.year}'),
-                            ],
+                          header(
+                            text: '${_formatDate.day}',
+                            type: 3,
+                            color: debitBlack54,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('Interviewer'),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(interviewer),
-                            ],
-                          ),
+                          Text('${monthFormat(_formatDate.month)}'),
+                          Text('${_formatDate.year}'),
                         ],
                       ),
-                      Stack(
+                    )),
+                Flexible(
+                  flex: 8,
+                  child: Container(
+                      width: width,
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: debitWhite,
+                          boxShadow: [
+                            BoxShadow(
+                              color: debitBlack54,
+                              blurRadius: 8,
+                              offset: Offset(1, 1),
+                            )
+                          ]),
+                      height: 130,
+                      child: Row(
                         children: [
-                          Container(
-                            width: progressWidth,
-                            height: 10,
-                            decoration: BoxDecoration(color: debitRed300),
+                          CustomPaint(
+                            painter: VerticalLinePainter(
+                              color: _interviewStatus,
+                            ),
+                            child: Container(),
                           ),
-                          AnimatedContainer(
-                            duration: Duration(seconds: 2),
-                            width: progressWidth * ratio,
-                            height: 10,
-                            decoration: BoxDecoration(color: debitGreen),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${_formatDate.hour}:${minuteStringFormat(_formatDate.minute.toString())} ${hourStringFormat(_formatDate.hour)}',
+                                    style: simpleStyle(
+                                      color: _interviewStatus,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.35,
+                                  ),
+                                  InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                          return OpenWindow();
+                                        }));
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.video_call,
+                                            color: _interviewStatus,
+                                          ),
+                                          Text('Open',
+                                              style: simpleStyle(
+                                                color: _interviewStatus,
+                                              )),
+                                        ],
+                                      )),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    interviewData['title'],
+                                    style: simpleStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    interviewData['subTitle'],
+                                    style: simpleStyle(
+                                      color: debitBlack54,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 7,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: interviewer.map((img) {
+                                  return Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: AssetImage(
+                                          img,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                    ],
+                                  );
+                                }).toList(),
+                              )
+                            ],
                           ),
                         ],
-                      )
-                    ],
-                  ),
-                ),
-                Flexible(
-                  flex: 3,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: (_dateDifferences < 0)
-                        ? [
-                            Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                color: debitGreen,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: InkWell(
-                                  child: Icon(
-                                Icons.add_to_home_screen,
-                                color: debitWhite,
-                              )),
-                            ),
-                            Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                color: debitYellow800,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: InkWell(
-                                  child: Icon(
-                                Icons.calendar_today,
-                                color: debitWhite,
-                              )),
-                            ),
-                          ]
-                        : [
-                            Container(
-                              width: 35,
-                              height: 35,
-                            ),
-                          ],
-                  ),
+                      )),
                 )
               ],
             ),
-          ),
-          Divider(
-            height: 0,
-            thickness: 2,
-          ),
+          )
         ],
       ),
     );

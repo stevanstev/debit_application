@@ -101,14 +101,15 @@ const String rejectedSubmssionLabel = 'Rejected';
 */
 
 /*
+  INTERVIEW PAGE LABEL
+*/
+const String interviewPageTitle = 'Interview';
+
+/*
   OTHERS LABEL
 */
 const String detailsLabel = 'Details';
 const String cancelLabel = 'Cancel';
 const String here = 'here';
 const String unimplementedLabel = 'Unimplemented';
-
-/*
-  INTERVIEW PAGE LABEL
-*/
-const String searchLabel = 'Search';
+const String developerDoingLabel = 'Page is in Progress';

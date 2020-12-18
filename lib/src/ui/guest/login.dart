@@ -7,6 +7,7 @@ import 'package:debit/src/ui/utils/debit_buttons.dart';
 import 'package:debit/src/ui/utils/debit_form.dart';
 import 'package:debit/src/ui/utils/debit_space.dart';
 import 'package:debit/src/ui/utils/load_view.dart';
+import 'package:debit/src/ui/utils/screen_size.dart';
 import 'package:debit/src/ui/utils/strings.dart';
 import 'package:debit/src/ui/utils/texts.dart';
 import 'package:flutter/material.dart';
@@ -84,10 +85,10 @@ class _LoginState extends State<Login> {
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(right: 40, left: 40),
+          padding: const EdgeInsets.only(right: 40, left: 40),
           children: [
             Container(
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: fullWidthSize(context: context) * 0.8,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -210,7 +211,7 @@ class _LoginState extends State<Login> {
                       buttonColor: debitTransparent,
                       splashColor: debitBlue800,
                       label: regisButtonLabel,
-                      height: MediaQuery.of(context).size.height * 0.03),
+                      height: fullHeightSize(context: context) * 0.03),
                 ],
               ),
             )

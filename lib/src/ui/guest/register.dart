@@ -167,7 +167,7 @@ class _RegisterState extends State<Register> with FormValidation {
                 CustomPaint(
                   painter: CurvePainter(),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
+                    width: fullWidthSize(context: context) * 0.2,
                   ),
                 ),
                 header(
@@ -179,7 +179,7 @@ class _RegisterState extends State<Register> with FormValidation {
                 CustomPaint(
                   painter: CurvePainter(),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
+                    width: fullWidthSize(context: context) * 0.2,
                   ),
                 ),
               ],
@@ -240,7 +240,7 @@ class _RegisterState extends State<Register> with FormValidation {
                 CustomPaint(
                   painter: CurvePainter(),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
+                    width: fullWidthSize(context: context) * 0.2,
                   ),
                 ),
                 header(
@@ -252,7 +252,7 @@ class _RegisterState extends State<Register> with FormValidation {
                 CustomPaint(
                   painter: CurvePainter(),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
+                    width: fullWidthSize(context: context) * 0.2,
                   ),
                 ),
               ],
@@ -368,7 +368,7 @@ class _RegisterState extends State<Register> with FormValidation {
                 CustomPaint(
                   painter: CurvePainter(),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
+                    width: fullWidthSize(context: context) * 0.2,
                   ),
                 ),
                 header(
@@ -380,7 +380,7 @@ class _RegisterState extends State<Register> with FormValidation {
                 CustomPaint(
                   painter: CurvePainter(),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
+                    width: fullWidthSize(context: context) * 0.2,
                   ),
                 ),
               ],
@@ -467,7 +467,7 @@ class _RegisterState extends State<Register> with FormValidation {
             debitDefaultButton(
                 labelColor: debitWhite,
                 buttonColor: debitBlue900,
-                height: MediaQuery.of(context).size.height * 0.06,
+                height: fullHeightSize(context: context) * 0.06,
                 label: registerSubmitLabel,
                 onTap: () {
                   if (_formKey.currentState.validate()) {
@@ -497,9 +497,7 @@ class _RegisterState extends State<Register> with FormValidation {
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.12,
-            left: 30,
-            right: 30),
+            top: fullHeightSize(context: context) * 0.12, left: 30, right: 30),
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -516,7 +514,7 @@ class _RegisterState extends State<Register> with FormValidation {
                   CustomPaint(
                     painter: CurvePainter(),
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
+                      width: fullWidthSize(context: context) * 0.2,
                     ),
                   ),
                   header(
@@ -528,7 +526,7 @@ class _RegisterState extends State<Register> with FormValidation {
                   CustomPaint(
                     painter: CurvePainter(),
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
+                      width: fullWidthSize(context: context) * 0.2,
                     ),
                   ),
                 ],
@@ -569,7 +567,7 @@ class _RegisterState extends State<Register> with FormValidation {
                       buttonColor: debitTransparent,
                       splashColor: debitBlue800,
                       label: loginButtonLabel,
-                      height: MediaQuery.of(context).size.height * 0.03),
+                      height: fullHeightSize(context: context) * 0.03),
                 ],
               ),
               debitCustomTopMargin(50),

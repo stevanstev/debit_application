@@ -43,13 +43,13 @@ class BoxTextField extends StatelessWidget {
         maxLength: maxLength,
         showCursor: true,
         obscuringCharacter: '*',
-        obscureText: false,
+        obscureText: true,
         textAlign: TextAlign.center,
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
         decoration: InputDecoration(
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(6),
             borderSide: BorderSide(
               color: debitBlue900,
             ),

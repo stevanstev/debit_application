@@ -62,7 +62,7 @@ class _SliverViewState extends State<SliverView> {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
-          backgroundColor: debitBlue900,
+          backgroundColor: debitWhite,
           elevation: 8,
           pinned: true,
           expandedHeight: 100,
@@ -77,7 +77,7 @@ class _SliverViewState extends State<SliverView> {
                       style: simpleStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: debitWhite),
+                          color: debitBlack87),
                     )),
               ],
             ),
@@ -93,7 +93,7 @@ class _SliverViewState extends State<SliverView> {
                 },
                 child: Icon(
                   Icons.notifications,
-                  color: debitWhite,
+                  color: debitBlack87,
                 ),
               ),
             ),
@@ -105,7 +105,7 @@ class _SliverViewState extends State<SliverView> {
             delegate: SliverChildListDelegate([
               Container(
                   margin: EdgeInsets.only(top: 0),
-                  decoration: BoxDecoration(color: debitBlue900),
+                  decoration: BoxDecoration(color: debitWhite),
                   child: Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Column(
@@ -126,7 +126,7 @@ class _SliverViewState extends State<SliverView> {
                           type: 7,
                           fontSize: 16,
                           text: 'Stevanus Steven',
-                          color: debitWhite,
+                          color: debitBlack87,
                         ),
                         SizedBox(
                           height: 10,

@@ -13,99 +13,112 @@ class PinView extends StatelessWidget {
     final node = FocusScope.of(context);
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            header(
-                context: context,
-                text: appName,
-                type: 7,
-                fontSize: 38,
-                color: debitBlue900),
-            SizedBox(
-              height: 17,
+      body: Stack(
+        children: [
+          Container(
+            height: fullHeightSize(context: context),
+            width: fullWidthSize(context: context),
+            child: Image(
+              image: AssetImage('assets/images/pin_bg.png'),
+              fit: BoxFit.cover,
             ),
-            Row(
+          ),
+          Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BoxTextField(
-                  autoFocus: true,
-                  width: width,
-                  onChanged: (v) {
-                    if (v != '') {
-                      node.nextFocus();
-                    }
-                  },
-                  onEditingComplete: () => node.nextFocus(),
+                header(
+                  context: context,
+                  text: appName,
+                  type: 7,
+                  fontSize: 30,
+                  color: debitBlue900,
                 ),
                 SizedBox(
-                  width: sizedBoxWidth,
+                  height: 17,
                 ),
-                BoxTextField(
-                  width: width,
-                  onChanged: (v) {
-                    if (v != '') {
-                      node.nextFocus();
-                    }
-                  },
-                  onEditingComplete: () => node.nextFocus(),
-                ),
-                SizedBox(
-                  width: sizedBoxWidth,
-                ),
-                BoxTextField(
-                  width: width,
-                  onChanged: (v) {
-                    if (v != '') {
-                      node.nextFocus();
-                    }
-                  },
-                  onEditingComplete: () => node.nextFocus(),
-                ),
-                SizedBox(
-                  width: sizedBoxWidth,
-                ),
-                BoxTextField(
-                  width: width,
-                  onChanged: (v) {
-                    if (v != '') {
-                      node.nextFocus();
-                    }
-                  },
-                  onEditingComplete: () => node.nextFocus(),
-                ),
-                SizedBox(
-                  width: sizedBoxWidth,
-                ),
-                BoxTextField(
-                  width: width,
-                  onChanged: (v) {
-                    if (v != '') {
-                      node.nextFocus();
-                    }
-                  },
-                  onEditingComplete: () => node.nextFocus(),
-                ),
-                SizedBox(
-                  width: sizedBoxWidth,
-                ),
-                BoxTextField(
-                  width: width,
-                  onChanged: (v) {
-                    if (v != '') {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/bottomNavigation', (route) => false);
-                    }
-                  },
-                  onEditingComplete: () {
-                    print('login bloc!');
-                  },
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    BoxTextField(
+                      autoFocus: true,
+                      width: width,
+                      onChanged: (v) {
+                        if (v != '') {
+                          node.nextFocus();
+                        }
+                      },
+                      onEditingComplete: () => node.nextFocus(),
+                    ),
+                    SizedBox(
+                      width: sizedBoxWidth,
+                    ),
+                    BoxTextField(
+                      width: width,
+                      onChanged: (v) {
+                        if (v != '') {
+                          node.nextFocus();
+                        }
+                      },
+                      onEditingComplete: () => node.nextFocus(),
+                    ),
+                    SizedBox(
+                      width: sizedBoxWidth,
+                    ),
+                    BoxTextField(
+                      width: width,
+                      onChanged: (v) {
+                        if (v != '') {
+                          node.nextFocus();
+                        }
+                      },
+                      onEditingComplete: () => node.nextFocus(),
+                    ),
+                    SizedBox(
+                      width: sizedBoxWidth,
+                    ),
+                    BoxTextField(
+                      width: width,
+                      onChanged: (v) {
+                        if (v != '') {
+                          node.nextFocus();
+                        }
+                      },
+                      onEditingComplete: () => node.nextFocus(),
+                    ),
+                    SizedBox(
+                      width: sizedBoxWidth,
+                    ),
+                    BoxTextField(
+                      width: width,
+                      onChanged: (v) {
+                        if (v != '') {
+                          node.nextFocus();
+                        }
+                      },
+                      onEditingComplete: () => node.nextFocus(),
+                    ),
+                    SizedBox(
+                      width: sizedBoxWidth,
+                    ),
+                    BoxTextField(
+                      width: width,
+                      onChanged: (v) {
+                        if (v != '') {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/bottomNavigation', (route) => false);
+                        }
+                      },
+                      onEditingComplete: () {
+                        print('login bloc!');
+                      },
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

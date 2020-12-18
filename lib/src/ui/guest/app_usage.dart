@@ -6,6 +6,7 @@ import 'package:debit/src/ui/guest/login.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/debit_buttons.dart';
 import 'package:debit/src/ui/utils/dot_shape.dart';
+import 'package:debit/src/ui/utils/screen_size.dart';
 import 'package:debit/src/ui/utils/strings.dart';
 import 'package:debit/src/ui/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
@@ -38,94 +39,106 @@ class _AppUsage extends State<AppUsage> {
             }
 
             return ListView(
-              padding: EdgeInsets.only(right: 10, left: 10),
               children: [
-                Stack(children: [
-                  CarouselSlider(
-                      carouselController: _controller,
-                      items: _bloc.images.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                                decoration: BoxDecoration(border: Border()),
-                                width: MediaQuery.of(context).size.width,
-                                child: Stack(
+                Stack(
+                  children: [
+                    Stack(children: [
+                      CarouselSlider(
+                          carouselController: _controller,
+                          items: _bloc.images.map((i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Image(
+                                  fit: BoxFit.cover,
+                                  height: fullHeightSize(context: context),
+                                  width: fullWidthSize(context: context),
+                                  image: AssetImage('assets/images/$i'),
+                                );
+                              },
+                            );
+                          }).toList(),
+                          options: CarouselOptions(
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _bloc.eventSink.add(
+                                      SetImagesIndexEvent(currentIndex: index));
+                                });
+                              },
+                              viewportFraction: 1,
+                              pageSnapping: true,
+                              initialPage: snapshot.data.currentIndex,
+                              enlargeCenterPage: true,
+                              height: fullHeightSize(context: context))),
+                      Positioned(
+                          top: fullHeightSize(context: context) * 0.91,
+                          left: 0,
+                          right: 0,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: _bloc.images.map((items) {
+                                int index = _bloc.images.indexOf(items);
+                                return Row(
                                   children: [
-                                    Image(
-                                      fit: BoxFit.cover,
-                                      height:
-                                          MediaQuery.of(context).size.height,
-                                      width: MediaQuery.of(context).size.width,
-                                      image: AssetImage('assets/images/$i'),
+                                    DotShape(
+                                      opacity:
+                                          (index == snapshot.data.currentIndex)
+                                              ? 0.8
+                                              : 0.3,
+                                    ),
+                                    SizedBox(
+                                      width: fullWidthSize(context: context) *
+                                          0.02,
                                     ),
                                   ],
-                                ));
-                          },
-                        );
-                      }).toList(),
-                      options: CarouselOptions(
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _bloc.eventSink.add(
-                                  SetImagesIndexEvent(currentIndex: index));
-                            });
-                          },
-                          viewportFraction: 1,
-                          pageSnapping: true,
-                          initialPage: snapshot.data.currentIndex,
-                          enlargeCenterPage: true,
-                          height: MediaQuery.of(context).size.height * 0.9)),
-                  Positioned(
-                      bottom: 30,
-                      left: 0,
-                      right: 0,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: _bloc.images.map((items) {
-                            int index = _bloc.images.indexOf(items);
-                            return Row(
-                              children: [
-                                DotShape(
-                                  opacity: (index == snapshot.data.currentIndex)
-                                      ? 0.8
-                                      : 0.3,
-                                ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.02,
-                                ),
-                              ],
-                            );
-                          }).toList())),
-                ]),
-                debitDefaultButton(
-                  splashColor: debitBlue800,
-                  buttonColor: debitBlue900,
-                  top: 10,
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      PageRouteBuilder(
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            var begin = Offset(0.0, 1.0);
-                            var end = Offset.zero;
-                            var tween = Tween(begin: begin, end: end);
-                            var offsetAnimation = animation.drive(tween);
-                            return SlideTransition(
-                              position: offsetAnimation,
-                              child: child,
-                            );
-                          },
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  Login()),
-                    );
-                  },
-                  labelColor: debitWhite,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.06,
-                  label: appUsageButton,
-                )
+                                );
+                              }).toList())),
+                    ]),
+                    Positioned(
+                        top: fullHeightSize(context: context) * 0.78,
+                        left: 0,
+                        right: 0,
+                        child: AnimatedOpacity(
+                          duration: Duration(milliseconds: 500),
+                          opacity: (snapshot.data.currentIndex == 4) ? 1 : 0,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                              right: 15,
+                            ),
+                            child: debitDefaultButton(
+                              splashColor: debitBlue800,
+                              buttonColor: debitBlue900,
+                              top: 10,
+                              onTap: () {
+                                Navigator.of(context).pushReplacement(
+                                  PageRouteBuilder(
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        var begin = Offset(0.0, 1.0);
+                                        var end = Offset.zero;
+                                        var tween =
+                                            Tween(begin: begin, end: end);
+                                        var offsetAnimation =
+                                            animation.drive(tween);
+                                        return SlideTransition(
+                                          position: offsetAnimation,
+                                          child: child,
+                                        );
+                                      },
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          Login()),
+                                );
+                              },
+                              labelColor: debitWhite,
+                              width: fullWidthSize(context: context) * 0.8,
+                              height: fullHeightSize(context: context) * 0.06,
+                              label: appUsageButton,
+                            ),
+                          ),
+                        ))
+                  ],
+                ),
               ],
             );
           }),

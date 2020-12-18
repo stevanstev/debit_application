@@ -8,13 +8,14 @@ class DebitAppBar extends StatelessWidget implements PreferredSizeWidget {
   final FontWeight fontWeight;
   final PreferredSizeWidget bottom;
 
-  DebitAppBar(
-      {@required this.title,
-      this.height,
-      this.child,
-      this.fontSize = 19,
-      this.bottom,
-      this.fontWeight = FontWeight.normal});
+  DebitAppBar({
+    @required this.title,
+    this.height,
+    this.child,
+    this.fontSize = 19,
+    this.bottom,
+    this.fontWeight = FontWeight.normal,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class DebitAppBar extends StatelessWidget implements PreferredSizeWidget {
             },
             child: Icon(Icons.notifications),
           ),
-        )
+        ),
       ],
     );
   }

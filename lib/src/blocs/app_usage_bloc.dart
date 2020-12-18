@@ -7,7 +7,8 @@ class AppUsageBloc extends BaseBloc<AppUsageEvent, AppUsageState> {
     'usage1.png',
     'usage2.png',
     'usage3.png',
-    'usage4.png'
+    'usage4.png',
+    'usage5.png',
   ];
 
   @override

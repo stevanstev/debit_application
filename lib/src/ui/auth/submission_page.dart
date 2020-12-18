@@ -62,11 +62,11 @@ class _SubmissionPageState extends State<SubmissionPage>
     return Scaffold(
       backgroundColor: debitGrey200,
       appBar: DebitAppBar(
-        height: 115,
+        height: 120,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(20),
+          preferredSize: const Size.fromHeight(20),
           child: Container(
-            padding: EdgeInsets.only(top: 0),
+            padding: const EdgeInsets.only(top: 0),
             height: fullWidthSize(context: context) * 0.18,
             decoration: BoxDecoration(color: debitWhite),
             child: TabBar(
@@ -82,21 +82,9 @@ class _SubmissionPageState extends State<SubmissionPage>
         decoration: BoxDecoration(color: debitWhite),
         child: TabBarView(
           children: [
-            SubmissionContent(
-              status: 0,
-              token: 'token',
-              userID: 1,
-            ),
-            SubmissionContent(
-              status: 1,
-              token: 'token',
-              userID: 1,
-            ),
-            SubmissionContent(
-              status: 2,
-              token: 'token',
-              userID: 1,
-            ),
+            SubmissionContent(),
+            SubmissionContent(),
+            SubmissionContent(),
           ],
           controller: tabController,
         ),
