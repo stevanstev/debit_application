@@ -98,3 +98,27 @@ GestureDetector debitClickableWidget({Widget child, Function onTap}) {
     child: child,
   );
 }
+
+GestureDetector debitButtonWithIcon({
+  @required onTap,
+  @required IconData icon,
+  @required Color color,
+  @required String buttonText,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Icon(
+          icon,
+          color: color,
+        ),
+        Text(
+          buttonText,
+          style: TextStyle(color: color),
+        ),
+      ],
+    ),
+  );
+}

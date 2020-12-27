@@ -1,4 +1,5 @@
 import 'package:debit/src/blocs/bottom_nav_bloc.dart';
+import 'package:debit/src/blocs/theme_bloc.dart';
 import 'package:debit/src/events/bottom_nav_event.dart';
 import 'package:debit/src/states/bottom_nav_state.dart';
 import 'package:debit/src/ui/utils/colors.dart';
@@ -6,6 +7,7 @@ import 'package:debit/src/ui/utils/strings.dart';
 import 'package:debit/src/ui/utils/texts.dart';
 import 'package:debit/src/ui/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -53,43 +55,45 @@ class _BottomNavigationState extends State<BottomNavigation> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
-              bottomNavigationBar: BottomNavigationBar(
-                selectedItemColor: navigationColor(snapshot.data.index),
-                type: BottomNavigationBarType.fixed,
-                currentIndex: snapshot.data.index,
-                onTap: (index) {
-                  _bloc.eventSink.add(NavigateEvent(index));
-                },
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    title: Text(
-                      dashboardLabel,
-                      style: simpleStyle(),
+              bottomNavigationBar: BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (context, themeState) => BottomNavigationBar(
+                  selectedItemColor: themeState.props[0],
+                  type: BottomNavigationBarType.fixed,
+                  currentIndex: snapshot.data.index,
+                  onTap: (index) {
+                    _bloc.eventSink.add(NavigateEvent(index));
+                  },
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.home),
+                      title: Text(
+                        dashboardLabel,
+                        style: simpleStyle(),
+                      ),
                     ),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.video_call),
-                    title: Text(
-                      interviewLabel,
-                      style: simpleStyle(),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.video_call),
+                      title: Text(
+                        interviewLabel,
+                        style: simpleStyle(),
+                      ),
                     ),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.assignment),
-                    title: Text(
-                      submissionLabel,
-                      style: simpleStyle(),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.assignment),
+                      title: Text(
+                        submissionLabel,
+                        style: simpleStyle(),
+                      ),
                     ),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
-                    title: Text(
-                      profileLabel,
-                      style: simpleStyle(),
-                    ),
-                  )
-                ],
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.person),
+                      title: Text(
+                        profileLabel,
+                        style: simpleStyle(),
+                      ),
+                    )
+                  ],
+                ),
               ),
               body: _bloc.pages[snapshot.data.index],
             );

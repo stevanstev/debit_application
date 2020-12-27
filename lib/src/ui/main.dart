@@ -1,4 +1,4 @@
-import 'package:debit/src/providers/application_state.dart';
+import 'package:debit/src/blocs/theme_bloc.dart';
 import 'package:debit/src/ui/auth/account/pin_view.dart';
 import 'package:debit/src/ui/auth/bottom_navigation.dart';
 import 'package:debit/src/ui/auth/dashboard.dart';
@@ -7,7 +7,7 @@ import 'package:debit/src/ui/guest/login.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Main extends StatelessWidget {
@@ -19,10 +19,14 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ApplicationState>(
-      create: (context) => ApplicationState(),
-      child: Consumer<ApplicationState>(
-        builder: (context, applicationState, _) => MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeBloc>(
+          create: (context) => ThemeBloc(color: debitBlue900),
+        ),
+      ],
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, themeState) => MaterialApp(
           home: FutureBuilder(
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -37,11 +41,11 @@ class Main extends StatelessWidget {
             future: getAuthToken(),
           ),
           theme: ThemeData(
-              appBarTheme: AppBarTheme(color: applicationState.color),
+              appBarTheme: AppBarTheme(color: themeState.props[0]),
               fontFamily: 'Mulish',
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
                   elevation: 0.0,
-                  selectedItemColor: debitBlue900,
+                  selectedItemColor: themeState.props[0],
                   backgroundColor: debitWhite)),
           debugShowCheckedModeBanner: false,
           routes: {

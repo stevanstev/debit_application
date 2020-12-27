@@ -113,3 +113,6 @@ const String cancelLabel = 'Cancel';
 const String here = 'here';
 const String unimplementedLabel = 'Unimplemented';
 const String developerDoingLabel = 'Page is in Progress';
+const String qrCodeLabel = 'QR Code';
+const String scanQrLabel = 'Scan QR Code';
+const String transferLabel = 'Transfer';

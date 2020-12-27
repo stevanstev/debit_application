@@ -58,6 +58,12 @@ class _SubmissionPageState extends State<SubmissionPage>
   }
 
   @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: debitGrey200,

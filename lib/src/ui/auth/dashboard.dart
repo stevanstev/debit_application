@@ -1,13 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:debit/src/blocs/auth_bloc.dart';
+import 'package:debit/src/blocs/theme_bloc.dart';
 import 'package:debit/src/events/auth_event.dart';
 import 'package:debit/src/models/monthly_data.dart';
 import 'package:debit/src/states/auth_state.dart';
 import 'package:debit/src/ui/auth/advertisement.dart';
 import 'package:debit/src/ui/auth/card_monthly_usage.dart';
 import 'package:debit/src/ui/auth/debit_app_bar.dart';
+import 'package:debit/src/ui/auth/qr_code/generate_qr.dart';
+import 'package:debit/src/ui/auth/qr_code/scan_qr.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/debit_border.dart';
+import 'package:debit/src/ui/utils/debit_buttons.dart';
 import 'package:debit/src/ui/utils/debit_space.dart';
 import 'package:debit/src/ui/utils/dot_shape.dart';
 import 'package:debit/src/ui/utils/screen_size.dart';
@@ -17,6 +21,7 @@ import 'package:debit/src/ui/widgets/bank_card.dart';
 import 'package:debit/src/ui/widgets/clippers.dart';
 import 'package:debit/src/ui/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -71,92 +76,83 @@ class _DashboardState extends State<Dashboard> {
               ),
               body: ListView(
                 children: [
-                  Container(
-                    width: fullWidthSize(context: context),
-                    height: fullHeightSize(context: context) * 0.15,
-                    child: Stack(
-                      children: [
-                        ClipPath(
-                          clipper: DefaultClipper(),
-                          child: Container(
-                            width: fullWidthSize(context: context),
-                            height: fullHeightSize(context: context) * 0.2,
-                            color: debitBlue900,
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 16),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Good Evening, Stevanus',
-                                      style: simpleStyle(
-                                          color: debitWhite,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
+                  BlocBuilder<ThemeBloc, ThemeState>(
+                    builder: (context, themeState) => Container(
+                      width: fullWidthSize(context: context),
+                      height: fullHeightSize(context: context) * 0.15,
+                      child: Stack(
+                        children: [
+                          ClipPath(
+                            clipper: DefaultClipper(),
+                            child: Container(
+                              width: fullWidthSize(context: context),
+                              height: fullHeightSize(context: context) * 0.2,
+                              color: themeState.props[0],
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 16),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Good Evening, Stevanus',
+                                        style: simpleStyle(
+                                            color: debitWhite,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: DefaultTabController(
-                              length: 3,
-                              child: Container(
-                                  width: fullWidthSize(context: context) * 0.9,
-                                  decoration: BoxDecoration(
-                                      color: debitBlack54,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: TabBar(
-                                    indicatorColor: debitTransparent,
-                                    tabs: [
-                                      Tab(
-                                        child: InkWell(
-                                          splashColor: debitBlack,
-                                          child: Text(
-                                            amountLabel,
-                                            style: TextStyle(color: debitWhite),
-                                          ),
-                                        ),
-                                        icon: Icon(
-                                          Icons.attach_money,
-                                          color: debitWhite,
-                                        ),
-                                      ),
-                                      Tab(
-                                        child: InkWell(
-                                            splashColor: debitBlack,
-                                            child: Text(
-                                              sendLabel,
-                                              style:
-                                                  TextStyle(color: debitWhite),
-                                            )),
-                                        icon: Icon(
-                                          Icons.send,
-                                          color: debitWhite,
-                                        ),
-                                      ),
-                                      Tab(
-                                        child: InkWell(
-                                          splashColor: debitBlack,
-                                          child: Text(
-                                            historyLabel,
-                                            style: TextStyle(color: debitWhite),
-                                          ),
-                                        ),
-                                        icon: Icon(
-                                          Icons.history,
-                                          color: debitWhite,
-                                        ),
-                                      )
-                                    ],
-                                  ))),
-                        )
-                      ],
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              width: fullWidthSize(context: context) * 0.9,
+                              height: fullHeightSize(context: context) * 0.1,
+                              decoration: BoxDecoration(
+                                  color: debitBlack54,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  debitButtonWithIcon(
+                                    buttonText: amountLabel,
+                                    color: debitWhite,
+                                    icon: Icons.attach_money,
+                                    onTap: () {},
+                                  ),
+                                  debitButtonWithIcon(
+                                    buttonText: sendLabel,
+                                    color: debitWhite,
+                                    icon: Icons.send,
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) => ScanQr()));
+                                    },
+                                  ),
+                                  debitButtonWithIcon(
+                                    buttonText: qrCodeLabel,
+                                    color: debitWhite,
+                                    icon: Icons.apps,
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  GenerateQr()));
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(

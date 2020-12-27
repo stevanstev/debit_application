@@ -1,9 +1,10 @@
 import 'package:debit/src/blocs/auth_bloc.dart';
+import 'package:debit/src/blocs/theme_bloc.dart';
 import 'package:debit/src/events/auth_event.dart';
-import 'package:debit/src/providers/application_state.dart';
 import 'package:debit/src/states/auth_state.dart';
 import 'package:debit/src/ui/auth/account/user_profile.dart';
 import 'package:debit/src/ui/auth/notif.dart';
+import 'package:debit/src/ui/auth/profiles/application_theme.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/load_view.dart';
 import 'package:debit/src/ui/utils/screen_size.dart';
@@ -11,7 +12,7 @@ import 'package:debit/src/ui/utils/strings.dart';
 import 'package:debit/src/ui/utils/texts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SliverView extends StatefulWidget {
   @override
@@ -59,60 +60,60 @@ class _SliverViewState extends State<SliverView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          backgroundColor: debitWhite,
-          elevation: 8,
-          pinned: true,
-          expandedHeight: 100,
-          flexibleSpace: Container(
-            child: Stack(
-              children: [
-                Positioned(
-                    bottom: 13,
-                    left: 10,
-                    child: Text(
-                      'Profile',
-                      style: simpleStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: debitBlack87),
-                    )),
-              ],
-            ),
-          ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 12),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                    return Notif();
-                  }));
-                },
-                child: Icon(
-                  Icons.notifications,
-                  color: debitBlack87,
-                ),
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, themeState) => CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: themeState.props[0],
+            elevation: 8,
+            pinned: true,
+            expandedHeight: 100,
+            flexibleSpace: Container(
+              child: Stack(
+                children: [
+                  Positioned(
+                      bottom: 13,
+                      left: 10,
+                      child: Text(
+                        'Profile',
+                        style: simpleStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: debitWhite),
+                      )),
+                ],
               ),
             ),
-          ],
-        ),
-        ChangeNotifierProvider<ApplicationState>(
-          create: (context) => ApplicationState(),
-          child: SliverList(
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(right: 12),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (ctx) {
+                      return Notif();
+                    }));
+                  },
+                  child: Icon(
+                    Icons.notifications,
+                    color: debitWhite,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SliverList(
             delegate: SliverChildListDelegate([
               Container(
                   margin: EdgeInsets.only(top: 0),
-                  decoration: BoxDecoration(color: debitWhite),
+                  decoration: BoxDecoration(color: themeState.props[0]),
                   child: Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: fullWidthSize(context: context) * 0.19,
+                          width: fullWidthSize(context: context) * 0.18,
                           height: fullHeightSize(context: context) * 0.09,
                           child: CircleAvatar(
                             backgroundImage:
@@ -126,7 +127,7 @@ class _SliverViewState extends State<SliverView> {
                           type: 7,
                           fontSize: 16,
                           text: 'Stevanus Steven',
-                          color: debitBlack87,
+                          color: debitWhite,
                         ),
                         SizedBox(
                           height: 10,
@@ -207,13 +208,13 @@ class _SliverViewState extends State<SliverView> {
                             print(securityLabel);
                           },
                           subtitle: Text(
-                            'Face Recognition for Access Application',
+                            'Fingerprint to Access Application',
                             style: simpleStyle(fontSize: 12),
                           ),
-                          leading: Icon(Icons.face),
+                          leading: Icon(Icons.touch_app),
                           trailing: Icon(Icons.chevron_right),
                           title: Text(
-                            'Face Login',
+                            'Fingerprint Login',
                             style:
                                 simpleStyle(color: debitBlack87, fontSize: 15),
                           ),
@@ -237,22 +238,21 @@ class _SliverViewState extends State<SliverView> {
                             color: debitBlack87,
                             type: 7,
                             fontSize: 17),
-                        Consumer<ApplicationState>(
-                          builder: (context, applicationState, _) => ListTile(
-                            onTap: () {
-                              applicationState.color = Colors.black87;
-                            },
-                            subtitle: Text(
-                              'Set the Application Theme',
-                              style: simpleStyle(fontSize: 12),
-                            ),
-                            leading: Icon(Icons.color_lens),
-                            trailing: Icon(Icons.chevron_right),
-                            title: Text(
-                              'Theme',
-                              style: simpleStyle(
-                                  color: debitBlack87, fontSize: 15),
-                            ),
+                        ListTile(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ApplicationTheme()));
+                          },
+                          subtitle: Text(
+                            'Set the Application Theme',
+                            style: simpleStyle(fontSize: 12),
+                          ),
+                          leading: Icon(Icons.color_lens),
+                          trailing: Icon(Icons.chevron_right),
+                          title: Text(
+                            'Theme',
+                            style:
+                                simpleStyle(color: debitBlack87, fontSize: 15),
                           ),
                         ),
                         Divider(
@@ -359,8 +359,8 @@ class _SliverViewState extends State<SliverView> {
                   )),
             ]),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

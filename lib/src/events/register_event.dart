@@ -1,4 +1,3 @@
-import 'package:debit/src/ui/guest/register.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class RegisterEvent extends Equatable {}
