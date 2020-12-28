@@ -1,7 +1,8 @@
+import 'package:debit/src/blocs/theme_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 Widget debitDefaultButton({
-  @required Color buttonColor,
   @required Color splashColor,
   @required double height,
   @required String label,
@@ -11,27 +12,30 @@ Widget debitDefaultButton({
   double labelSize = 14,
   double top = 0,
   double width,
+  Color buttonColor,
   double buttonRadius = 10,
   FontWeight labelWeight = FontWeight.normal,
 }) {
-  return Container(
-    margin: EdgeInsets.only(top: top),
-    width: width,
-    height: height,
-    child: Material(
-      borderRadius: BorderRadius.circular(buttonRadius),
-      elevation: elevation,
-      color: buttonColor,
-      child: InkWell(
-        onTap: onTap,
-        splashColor: splashColor,
-        child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-                color: labelColor,
-                fontSize: labelSize,
-                fontWeight: labelWeight),
+  return BlocBuilder<ThemeBloc, ThemeState>(
+    builder: (context, themeState) => Container(
+      margin: EdgeInsets.only(top: top),
+      width: width,
+      height: height,
+      child: Material(
+        borderRadius: BorderRadius.circular(buttonRadius),
+        elevation: elevation,
+        color: buttonColor ?? themeState.props[0],
+        child: InkWell(
+          onTap: onTap,
+          splashColor: splashColor,
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                  color: labelColor,
+                  fontSize: labelSize,
+                  fontWeight: labelWeight),
+            ),
           ),
         ),
       ),

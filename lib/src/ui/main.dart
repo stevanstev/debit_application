@@ -31,7 +31,11 @@ class Main extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data != '') {
-                  return PinView();
+                  return PinView(
+                    navigateAfterInputPin: () => Navigator.of(context)
+                        .pushNamedAndRemoveUntil(
+                            '/bottomNavigation', (route) => false),
+                  );
                 } else {
                   return AppUsage();
                 }
@@ -53,7 +57,11 @@ class Main extends StatelessWidget {
             '/login': (BuildContext ctx) => Login(),
             '/dashboard': (BuildContext ctx) => Dashboard(),
             '/bottomNavigation': (BuildContext ctx) => BottomNavigation(),
-            '/pinView': (BuildContext ctx) => PinView(),
+            '/pinView': (BuildContext ctx) => PinView(
+                  navigateAfterInputPin: () => Navigator.of(context)
+                      .pushNamedAndRemoveUntil(
+                          '/bottomNavigation', (route) => false),
+                ),
           },
         ),
       ),

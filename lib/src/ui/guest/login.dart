@@ -1,6 +1,7 @@
 import 'package:debit/src/blocs/login_bloc.dart';
 import 'package:debit/src/events/login_event.dart';
 import 'package:debit/src/states/login_state.dart';
+import 'package:debit/src/ui/auth/account/pin_view.dart';
 import 'package:debit/src/ui/guest/register.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/debit_buttons.dart';
@@ -64,8 +65,11 @@ class _LoginState extends State<Login> {
       _closeLoad();
 
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            '/pinView', (Route<dynamic> route) => false);
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext ctx) => PinView(
+                navigateAfterInputPin: () => Navigator.of(context)
+                    .pushNamedAndRemoveUntil(
+                        '/bottomNavigation', (route) => false))));
       });
     }
   }

@@ -8,7 +8,8 @@ abstract class BaseBloc<Event, State> {
   StreamController<Event> _eventController = StreamController<Event>();
   StreamSink<Event> get eventSink => _eventController.sink;
 
-  StreamController<State> _stateController = StreamController<State>();
+  StreamController<State> _stateController =
+      StreamController<State>.broadcast();
   Stream<State> get stateStream => _stateController.stream;
   StreamSink<State> get stateSink => _stateController.sink;
 

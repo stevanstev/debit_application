@@ -107,7 +107,6 @@ class _AppUsage extends State<AppUsage> {
                             ),
                             child: debitDefaultButton(
                               splashColor: debitBlue800,
-                              buttonColor: debitBlue900,
                               top: 10,
                               onTap: () {
                                 Navigator.of(context).pushReplacement(
@@ -131,6 +130,7 @@ class _AppUsage extends State<AppUsage> {
                                 );
                               },
                               labelColor: debitWhite,
+                              buttonColor: debitBlue900,
                               width: fullWidthSize(context: context) * 0.8,
                               height: fullHeightSize(context: context) * 0.06,
                               label: appUsageButton,

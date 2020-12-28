@@ -2,9 +2,13 @@ import 'package:debit/src/blocs/auth_bloc.dart';
 import 'package:debit/src/blocs/theme_bloc.dart';
 import 'package:debit/src/events/auth_event.dart';
 import 'package:debit/src/states/auth_state.dart';
+import 'package:debit/src/ui/auth/account/pin_view.dart';
 import 'package:debit/src/ui/auth/account/user_profile.dart';
+import 'package:debit/src/ui/auth/biometrics/prompt_fingerprint.dart';
+import 'package:debit/src/ui/auth/biometrics/set_fingerprint.dart';
 import 'package:debit/src/ui/auth/notif.dart';
 import 'package:debit/src/ui/auth/profiles/application_theme.dart';
+import 'package:debit/src/ui/auth/profiles/change_pin.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/load_view.dart';
 import 'package:debit/src/ui/utils/screen_size.dart';
@@ -186,7 +190,17 @@ class _SliverViewState extends State<SliverView> {
                             fontSize: 17),
                         ListTile(
                           onTap: () {
-                            print(securityLabel);
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  PinView(navigateAfterInputPin: () {
+                                Navigator.of(context).pop();
+                                WidgetsBinding.instance.addPostFrameCallback(
+                                    (timeStamp) => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChangePin())));
+                              }),
+                            ));
                           },
                           subtitle: Text(
                             'Change your Application\'s Login PIN',
@@ -205,7 +219,8 @@ class _SliverViewState extends State<SliverView> {
                         ),
                         ListTile(
                           onTap: () {
-                            print(securityLabel);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SetFingerprint()));
                           },
                           subtitle: Text(
                             'Fingerprint to Access Application',

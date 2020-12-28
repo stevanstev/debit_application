@@ -4,11 +4,15 @@ import 'package:debit/src/blocs/theme_bloc.dart';
 import 'package:debit/src/events/auth_event.dart';
 import 'package:debit/src/models/monthly_data.dart';
 import 'package:debit/src/states/auth_state.dart';
+import 'package:debit/src/ui/auth/account/account_amount.dart';
 import 'package:debit/src/ui/auth/advertisement.dart';
 import 'package:debit/src/ui/auth/card_monthly_usage.dart';
 import 'package:debit/src/ui/auth/debit_app_bar.dart';
+import 'package:debit/src/ui/auth/permissions/access_camera.dart';
 import 'package:debit/src/ui/auth/qr_code/generate_qr.dart';
-import 'package:debit/src/ui/auth/qr_code/scan_qr.dart';
+import 'package:debit/src/ui/auth/transfer/send_money.dart';
+import 'package:debit/src/ui/utils/load_view.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/debit_border.dart';
 import 'package:debit/src/ui/utils/debit_buttons.dart';
@@ -124,18 +128,52 @@ class _DashboardState extends State<Dashboard> {
                                     buttonText: amountLabel,
                                     color: debitWhite,
                                     icon: Icons.attach_money,
-                                    onTap: () {},
-                                  ),
-                                  debitButtonWithIcon(
-                                    buttonText: sendLabel,
-                                    color: debitWhite,
-                                    icon: Icons.send,
                                     onTap: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
-                                              builder: (context) => ScanQr()));
+                                              builder: (_) => AccountAmount()));
                                     },
                                   ),
+                                  debitButtonWithIcon(
+                                      buttonText: sendLabel,
+                                      color: debitWhite,
+                                      icon: Icons.send,
+                                      onTap: () async {
+                                        bool cameraPermission =
+                                            await requestCameraPermission();
+                                        if (cameraPermission) {
+                                          String qrScanResult =
+                                              await scanner.scan();
+                                          if (qrScanResult.isEmpty) {
+                                            Scaffold.of(context).showSnackBar(
+                                                SnackBar(
+                                                    content: Text(
+                                                        'Qr Scan Canceled')));
+                                          } else {
+                                            WidgetsBinding.instance
+                                                .addPostFrameCallback(
+                                                    (timeStamp) {
+                                              return Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SendMoney(
+                                                            accountData: {
+                                                              'accountNumber':
+                                                                  qrScanResult,
+                                                              'accountName':
+                                                                  'Steven',
+                                                            },
+                                                          )));
+                                            });
+                                          }
+                                        } else {
+                                          Scaffold.of(context).showSnackBar(
+                                              SnackBar(
+                                                  content: Text(
+                                                      'No Camera Permission')));
+                                        }
+                                      }),
                                   debitButtonWithIcon(
                                     buttonText: qrCodeLabel,
                                     color: debitWhite,

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:debit/src/blocs/register_bloc.dart';
 import 'package:debit/src/events/register_event.dart';
 import 'package:debit/src/states/register_state.dart';
+import 'package:debit/src/ui/auth/permissions/access_camera.dart';
 import 'package:debit/src/ui/utils/colors.dart';
 import 'package:debit/src/ui/utils/debit_buttons.dart';
 import 'package:debit/src/ui/utils/debit_form.dart';
@@ -60,10 +61,9 @@ class _RegisterState extends State<Register> with FormValidation {
   }
 
   Future getImage({String stateName}) async {
-    Map<Permission, PermissionStatus> statuses =
-        await [Permission.camera].request();
+    bool cameraPermission = await requestCameraPermission();
 
-    if (statuses[Permission.camera] == PermissionStatus.granted) {
+    if (cameraPermission) {
       final pickedFile = await picker.getImage(source: ImageSource.camera);
       setState(() {
         if (pickedFile != null) {

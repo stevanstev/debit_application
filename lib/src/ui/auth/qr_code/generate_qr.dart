@@ -87,7 +87,6 @@ class GenerateQr extends StatelessWidget {
                               height: 18,
                             ),
                             debitDefaultButton(
-                                buttonColor: debitBlue900,
                                 splashColor: debitBlue800,
                                 height: 50,
                                 width: fullWidthSize(context: context) * 0.8,

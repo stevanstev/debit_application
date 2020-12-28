@@ -136,10 +136,14 @@ TextFormField debitTextField(
     int maxLength,
     Function onChanged,
     Function validator,
+    String initialValue = "",
     IconData icon,
+    bool readOnly = false,
     bool autofocus = false}) {
   return TextFormField(
     maxLength: maxLength,
+    readOnly: readOnly,
+    initialValue: initialValue,
     onChanged: onChanged,
     autofocus: autofocus,
     validator: validator,
@@ -161,12 +165,16 @@ TextFormField debitTextField(
 TextFormField debitNumberField(
     {String label,
     int maxLength,
+    String initialValue = "",
     Function onChanged,
     IconData icon,
     Function onSaved,
+    bool readOnly = false,
     bool autofocus = false}) {
   return TextFormField(
+    readOnly: readOnly,
     onSaved: onSaved,
+    initialValue: initialValue,
     maxLength: maxLength,
     onChanged: onChanged,
     autofocus: autofocus,

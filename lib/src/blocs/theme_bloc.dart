@@ -26,7 +26,7 @@ class ThemeDefaultState extends ThemeState {
 
   @override
   // TODO: implement props
-  List<Object> get props => [this.color];
+  List<Object> get props => [color];
 }
 
 class ChangeThemeState extends ThemeState {
@@ -36,7 +36,7 @@ class ChangeThemeState extends ThemeState {
 
   @override
   // TODO: implement props
-  List<Object> get props => [this.color];
+  List<Object> get props => [color];
 }
 
 abstract class ThemeEvent extends Equatable {}

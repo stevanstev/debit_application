@@ -6,6 +6,10 @@ import 'package:debit/src/ui/widgets/box_text_field.dart';
 import 'package:flutter/material.dart';
 
 class PinView extends StatelessWidget {
+  final Function navigateAfterInputPin;
+
+  PinView({@required this.navigateAfterInputPin});
+
   @override
   Widget build(BuildContext context) {
     double sizedBoxWidth = fullWidthSize(context: context) * 0.3 / 14;
@@ -105,8 +109,7 @@ class PinView extends StatelessWidget {
                       width: width,
                       onChanged: (v) {
                         if (v != '') {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/bottomNavigation', (route) => false);
+                          navigateAfterInputPin();
                         }
                       },
                       onEditingComplete: () {
